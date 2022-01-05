@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
   $("#btn-search").on("click", function (e) {
-    $(".hide-content").hide();
-    $(".loader").show();
     e.preventDefault();
     localStorage.clear(); //Clears storage for next request
     email = $('input[type="text"]').val().toLowerCase();
@@ -16,6 +14,9 @@ $(document).ready(function () {
     }
 
     if (x === true) {
+
+      $(".hide-content").hide();
+      $(".loader").show();
       document.querySelector('input[type="text"]').parentNode.classList.remove("error");
       const proxyurl = "";
       const url =
@@ -26,7 +27,7 @@ $(document).ready(function () {
           localStorage.setItem("userObject", contents);
           setTimeout(function () {
             window.location.href = "result.html";
-          }, 2500);
+          }, 1000);
         })
         .catch((e) => console.log(e));
     } else if (x !== true) {
@@ -34,6 +35,30 @@ $(document).ready(function () {
     }
   });
 
+  $("#btn-search-phone").on("click", function (e) {
+    e.preventDefault();
+    localStorage.clear(); //Clears storage for next request
+    let phoneNumber = $('input[name="phone_number"]').val();
+    if (phoneNumber != '' && phoneNumber.length == 10) {
+      $(".hide-content").hide();
+      $(".loader").show();
+      const proxyurl = "";
+      const url =
+        'https://ltv-data-api.herokuapp.com/api/v1/records.json?phone=' + phoneNumber;
+      fetch(proxyurl + url)
+        .then((response) => response.text())
+        .then(function (contents) {
+          localStorage.setItem("userObject", contents);
+          setTimeout(function () {
+            window.location.href = "result.html";
+          }, 1000);
+        })
+        .catch((e) => console.log(e));
+    } else {
+      document.querySelector('input[name="phone_number"]').parentNode.classList.add("error-phone");
+    }
+
+  });
   $('input[type="text"]').keypress(function (event) {
     email = $('input[type="text"]').val().toLowerCase();
     regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -69,6 +94,18 @@ $(document).ready(function () {
       } else if (x !== true) {
         document.querySelector('input[type="text"]').parentNode.classList.add("error");
       }
+    }
+  });
+
+  $(".change-tab").click(function () {
+    $('.change-tab').removeClass('tab-button-active');
+    $(this).addClass("tab-button-active");
+    if ($(this).val() != 'email') {
+      $(".phone-section").show();
+      $(".email-section").hide();
+    } else {
+      $(".email-section").show();
+      $(".phone-section").hide();
     }
   });
 
