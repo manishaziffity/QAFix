@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
   $("#btn-search").on("click", function (e) {
+    $(".hide-content").hide();
+    $(".loader").show();
     e.preventDefault();
     localStorage.clear(); //Clears storage for next request
     email = $('input[type="text"]').val().toLowerCase();
@@ -22,7 +24,9 @@ $(document).ready(function () {
         .then((response) => response.text())
         .then(function (contents) {
           localStorage.setItem("userObject", contents);
-          window.location.href = "result.html";
+          setTimeout(function () {
+            window.location.href = "result.html";
+          }, 2500);
         })
         .catch((e) => console.log(e));
     } else if (x !== true) {
