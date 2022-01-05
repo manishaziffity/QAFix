@@ -207,6 +207,15 @@ section {
   line-height: 26px;
 }
 
+.tab-active{
+  display: grid;
+}
+
+.tab-active svg{
+  margin: auto;
+    color: #F6BC25;
+    margin-top: -5px;
+}
 /* ************************************************************
 ***************************************************************
 --- [SECTION][RESULTS PAGE] Result ---
