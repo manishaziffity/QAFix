@@ -268,7 +268,21 @@ section {
 }
 
 .loader img{
+  justify-content: center;
+  display: flex;
   margin: auto;
+}
+
+.loader-text{
+  margin: auto;
+}
+
+.loader-text p{
+  text-align: center;
+  color:#004A80;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 1rem;
 }
 
 /* ************************************************************
